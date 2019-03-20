@@ -8,10 +8,14 @@ export default class SimpleExample extends Component {
       latitude: 51.505,
       longitude: -0.09,
     },
-    zoom: 13,
+    zoom: 5,
   }
 
   componentDidMount = () => {
+    this.setUserLocation()
+  }
+
+  setUserLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log('position:', position)
       // coords: {
@@ -27,7 +31,7 @@ export default class SimpleExample extends Component {
       this.setState({
         location: {
           latitude: position.coords.latitude,
-          longitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         },
       })
     })
