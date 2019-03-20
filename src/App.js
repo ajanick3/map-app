@@ -1,15 +1,43 @@
+// https://react-leaflet.js.org/docs/en/examples.html
 import React, { Component } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 export default class SimpleExample extends Component {
   state = {
-    lat: 51.505,
-    lng: -0.09,
+    location: {
+      latitude: 51.505,
+      longitude: -0.09,
+    },
     zoom: 13,
   }
 
+  componentDidMount = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log('position:', position)
+      // coords: {
+      //   accuracy: 20
+      //   altitude: null
+      //   altitudeAccuracy: null
+      //   heading: null
+      //   latitude: 44.7562018
+      //   longitude: -85.7277294
+      //   speed: null
+      //   timestamp: 1553055706657
+      // }
+      this.setState({
+        location: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.latitude,
+        },
+      })
+    })
+  }
+
   render() {
-    const position = [this.state.lat, this.state.lng]
+    const position = [
+      this.state.location.latitude,
+      this.state.location.longitude,
+    ]
     return (
       <div style={{ height: '100vh', width: '100vw' }}>
         <Map center={position} zoom={this.state.zoom}>
